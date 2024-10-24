@@ -153,27 +153,27 @@ class AspectJAutoProxyAdviceOrderIntegrationTests {
 		}
 
 		@After("echo()")
-		void after() {
+		public void after() {
 			invocations.add("after");
 		}
 
 		@AfterReturning("echo()")
-		void afterReturning() {
+		public void afterReturning() {
 			invocations.add("after returning");
 		}
 
 		@AfterThrowing("echo()")
-		void afterThrowing() {
+		public void afterThrowing() {
 			invocations.add("after throwing");
 		}
 
 		@Before("echo()")
-		void before() {
+		public void before() {
 			invocations.add("before");
 		}
 
 		@Around("echo()")
-		Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+		public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 			invocations.add("around - start");
 			try {
 				return joinPoint.proceed();
@@ -197,7 +197,7 @@ class AspectJAutoProxyAdviceOrderIntegrationTests {
 		}
 
 		@Around("echo()")
-		Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+		public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 			invocations.add("around - start");
 			try {
 				return joinPoint.proceed();
@@ -208,22 +208,22 @@ class AspectJAutoProxyAdviceOrderIntegrationTests {
 		}
 
 		@Before("echo()")
-		void before() {
+		public void before() {
 			invocations.add("before");
 		}
 
 		@AfterReturning("echo()")
-		void afterReturning() {
+		public void afterReturning() {
 			invocations.add("after returning");
 		}
 
 		@AfterThrowing("echo()")
-		void afterThrowing() {
+		public void afterThrowing() {
 			invocations.add("after throwing");
 		}
 
 		@After("echo()")
-		void after() {
+		public void after() {
 			invocations.add("after");
 		}
 	}

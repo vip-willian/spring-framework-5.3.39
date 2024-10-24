@@ -1,5 +1,12 @@
 The following has been tested against IntelliJ IDEA 2016.2.2
 
+## Prepare
+1. jdk版本 11
+2. gradle版本 7.5.1
+3. 修改国内镜像源（阿里云）
+   setting.gradle文件 build.gradle文件
+4. aspects支持
+
 ## Steps
 
 _Within your locally cloned spring-framework working directory:_
