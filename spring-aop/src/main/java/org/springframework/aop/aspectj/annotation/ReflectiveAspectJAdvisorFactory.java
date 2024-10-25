@@ -133,6 +133,7 @@ public class ReflectiveAspectJAdvisorFactory extends AbstractAspectJAdvisorFacto
 				new LazySingletonAspectInstanceFactoryDecorator(aspectInstanceFactory);
 
 		List<Advisor> advisors = new ArrayList<>();
+		// 获取这个类所有的增强方法
 		for (Method method : getAdvisorMethods(aspectClass)) {
 			if (method.equals(ClassUtils.getMostSpecificMethod(method, aspectClass))) {
 				// Prior to Spring Framework 5.2.7, advisors.size() was supplied as the declarationOrderInAspect
@@ -143,6 +144,7 @@ public class ReflectiveAspectJAdvisorFactory extends AbstractAspectJAdvisorFacto
 				// discovered via reflection in order to support reliable advice ordering across JVM launches.
 				// Specifically, a value of 0 aligns with the default value used in
 				// AspectJPrecedenceComparator.getAspectDeclarationOrder(Advisor).
+				// 生成类的增强实例
 				Advisor advisor = getAdvisor(method, lazySingletonAspectInstanceFactory, 0, aspectName);
 				if (advisor != null) {
 					advisors.add(advisor);
@@ -206,7 +208,7 @@ public class ReflectiveAspectJAdvisorFactory extends AbstractAspectJAdvisorFacto
 			int declarationOrderInAspect, String aspectName) {
 
 		validate(aspectInstanceFactory.getAspectMetadata().getAspectClass());
-
+		// 解析切点表达式
 		AspectJExpressionPointcut expressionPointcut = getPointcut(
 				candidateAdviceMethod, aspectInstanceFactory.getAspectMetadata().getAspectClass());
 		if (expressionPointcut == null) {
@@ -214,6 +216,7 @@ public class ReflectiveAspectJAdvisorFactory extends AbstractAspectJAdvisorFacto
 		}
 
 		try {
+			// 根据方法、切点、AOP实例工厂、类名、序号生成切面实例
 			return new InstantiationModelAwarePointcutAdvisorImpl(expressionPointcut, candidateAdviceMethod,
 					this, aspectInstanceFactory, declarationOrderInAspect, aspectName);
 		}

@@ -164,12 +164,14 @@ public abstract class AbstractFallbackTransactionAttributeSource
 	@Nullable
 	protected TransactionAttribute computeTransactionAttribute(Method method, @Nullable Class<?> targetClass) {
 		// Don't allow non-public methods, as configured.
+		// 如果设置了只对public方法进行事务代理，并且当前方法不是public的，则返回null
 		if (allowPublicMethodsOnly() && !Modifier.isPublic(method.getModifiers())) {
 			return null;
 		}
 
 		// The method may be on an interface, but we need attributes from the target class.
 		// If the target class is null, the method will be unchanged.
+		// 获取最为准确的方法，即如果传入的method只是一个接口方法，则会去找其实现类的同一方法进行解析
 		Method specificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
 
 		// First try is the method in the target class.

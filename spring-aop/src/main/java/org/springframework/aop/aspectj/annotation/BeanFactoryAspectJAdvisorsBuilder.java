@@ -106,6 +106,7 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 						if (beanType == null) {
 							continue;
 						}
+						// 判断类上是否有@Aspect标识
 						if (this.advisorFactory.isAspect(beanType)) {
 							try {
 								AspectMetadata amd = new AspectMetadata(beanType, beanName);
@@ -114,6 +115,7 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 											new BeanFactoryAspectInstanceFactory(this.beanFactory, beanName);
 									List<Advisor> classAdvisors = this.advisorFactory.getAdvisors(factory);
 									if (this.beanFactory.isSingleton(beanName)) {
+										// 将解析的Bean名称及类上的增强缓存起来,每个Bean只解析一次
 										this.advisorsCache.put(beanName, classAdvisors);
 									}
 									else {

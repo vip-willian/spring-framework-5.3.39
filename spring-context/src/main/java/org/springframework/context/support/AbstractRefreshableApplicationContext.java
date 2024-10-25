@@ -128,6 +128,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			beanFactory.setSerializationId(getId());
 			beanFactory.setApplicationStartup(getApplicationStartup());
 			customizeBeanFactory(beanFactory);
+			// 加载基于xml文件类型的BeanDefinition到容器中
 			loadBeanDefinitions(beanFactory);
 			this.beanFactory = beanFactory;
 		}

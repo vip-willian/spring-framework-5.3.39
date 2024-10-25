@@ -234,6 +234,7 @@ final class PostProcessorRegistrationDelegate {
 		List<String> nonOrderedPostProcessorNames = new ArrayList<>();
 		for (String ppName : postProcessorNames) {
 			if (beanFactory.isTypeMatch(ppName, PriorityOrdered.class)) {
+				// 调用getBean方法，获取BeanPostProcessor的实例对象
 				BeanPostProcessor pp = beanFactory.getBean(ppName, BeanPostProcessor.class);
 				priorityOrderedPostProcessors.add(pp);
 				if (pp instanceof MergedBeanDefinitionPostProcessor) {
@@ -308,6 +309,7 @@ final class PostProcessorRegistrationDelegate {
 		for (BeanDefinitionRegistryPostProcessor postProcessor : postProcessors) {
 			StartupStep postProcessBeanDefRegistry = applicationStartup.start("spring.context.beandef-registry.post-process")
 					.tag("postProcessor", postProcessor::toString);
+			// 调用BeanFactoryPostProcessor子类BeanDefinitionRegistryPostProcessor的接口
 			postProcessor.postProcessBeanDefinitionRegistry(registry);
 			postProcessBeanDefRegistry.end();
 		}
@@ -322,6 +324,7 @@ final class PostProcessorRegistrationDelegate {
 		for (BeanFactoryPostProcessor postProcessor : postProcessors) {
 			StartupStep postProcessBeanFactory = beanFactory.getApplicationStartup().start("spring.context.bean-factory.post-process")
 					.tag("postProcessor", postProcessor::toString);
+			// 调用BeanFactoryPostProcessor扩展接口
 			postProcessor.postProcessBeanFactory(beanFactory);
 			postProcessBeanFactory.end();
 		}
@@ -338,6 +341,7 @@ final class PostProcessorRegistrationDelegate {
 			((AbstractBeanFactory) beanFactory).addBeanPostProcessors(postProcessors);
 		}
 		else {
+			// 维护到beanFactory的beanPostProcessors集合中
 			for (BeanPostProcessor postProcessor : postProcessors) {
 				beanFactory.addBeanPostProcessor(postProcessor);
 			}

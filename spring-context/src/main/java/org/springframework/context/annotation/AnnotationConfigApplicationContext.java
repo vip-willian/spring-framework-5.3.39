@@ -66,8 +66,10 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 */
 	public AnnotationConfigApplicationContext() {
 		StartupStep createAnnotatedBeanDefReader = getApplicationStartup().start("spring.context.annotated-bean-reader.create");
+		// 初始化一个基于注解BeanDefinition的读取器
 		this.reader = new AnnotatedBeanDefinitionReader(this);
 		createAnnotatedBeanDefReader.end();
+		// 初始化一个基于classpath路径下的扫描器
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 
@@ -89,7 +91,9 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
 		this();
+		// 解析配置类，将配置的BeanDefinition放入容器
 		register(componentClasses);
+		// 准备刷新容器
 		refresh();
 	}
 
@@ -101,7 +105,9 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 */
 	public AnnotationConfigApplicationContext(String... basePackages) {
 		this();
+		// 扫描基础包
 		scan(basePackages);
+		// 准备刷新容器
 		refresh();
 	}
 
@@ -165,6 +171,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 		Assert.notEmpty(componentClasses, "At least one component class must be specified");
 		StartupStep registerComponentClass = getApplicationStartup().start("spring.context.component-classes.register")
 				.tag("classes", () -> Arrays.toString(componentClasses));
+		// 注册组件
 		this.reader.register(componentClasses);
 		registerComponentClass.end();
 	}
@@ -182,6 +189,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 		Assert.notEmpty(basePackages, "At least one base package must be specified");
 		StartupStep scanPackages = getApplicationStartup().start("spring.context.base-packages.scan")
 				.tag("packages", () -> Arrays.toString(basePackages));
+		// 扫描包路径
 		this.scanner.scan(basePackages);
 		scanPackages.end();
 	}

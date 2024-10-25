@@ -60,6 +60,7 @@ import org.springframework.util.StringValueResolver;
  * @see org.springframework.context.ApplicationContextAware
  * @see org.springframework.context.support.AbstractApplicationContext#refresh()
  */
+// bean初始化前进行拦截，将impl了Aware相关的数据进行返回
 class ApplicationContextAwareProcessor implements BeanPostProcessor {
 
 	private final ConfigurableApplicationContext applicationContext;

@@ -133,6 +133,7 @@ import org.springframework.util.StringUtils;
  * @see Autowired
  * @see Value
  */
+// 解析@Autowired注解和@Value注解
 public class AutowiredAnnotationBeanPostProcessor implements SmartInstantiationAwareBeanPostProcessor,
 		MergedBeanDefinitionPostProcessor, PriorityOrdered, BeanFactoryAware {
 

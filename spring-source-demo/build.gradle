@@ -1,6 +1,9 @@
 plugins {
     id 'java'
 }
+// 使用jdk11
+// 使用gradle 7.5.1
+// 先使用javac编译，再使用ajc进行编译
 
 group = 'org.springframework'
 version = '5.3.39'
@@ -10,10 +13,22 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.projectlombok:lombok:1.18.34'
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation(project(":spring-context"))
     implementation(project(":spring-core"))
+    // aop 相关依赖
+    implementation(project(":spring-aop"))
+    implementation 'org.aspectj:aspectjweaver'
+    implementation 'org.aspectj:aspectjrt'
+    implementation 'cglib:cglib:3.3.0'
+
+    // 数据库相关
+    implementation(project(":spring-jdbc"))
+    implementation 'mysql:mysql-connector-java:8.0.33'
+    implementation 'com.alibaba:druid:1.2.23'
 }
 
 test {

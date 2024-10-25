@@ -2122,6 +2122,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 */
 	static class BeanPostProcessorCache {
 
+		// bean 实例化前后 ，属性赋值之前
 		final List<InstantiationAwareBeanPostProcessor> instantiationAware = new ArrayList<>();
 
 		final List<SmartInstantiationAwareBeanPostProcessor> smartInstantiationAware = new ArrayList<>();
