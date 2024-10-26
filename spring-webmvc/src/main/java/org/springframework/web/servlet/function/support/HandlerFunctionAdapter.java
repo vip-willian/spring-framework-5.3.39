@@ -82,6 +82,7 @@ public class HandlerFunctionAdapter implements HandlerAdapter, Ordered {
 		this.asyncRequestTimeout = timeout;
 	}
 
+	// 实现了HandlerFunction接口
 	@Override
 	public boolean supports(Object handler) {
 		return handler instanceof HandlerFunction;
